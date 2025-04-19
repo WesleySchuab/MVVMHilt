@@ -42,7 +42,14 @@ android {
 }
 
 dependencies {
+    // Lifecycle
+    val lifecycle_version = "2.8.7"
+    val arch_version = "2.2.0"
 
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
     //Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
