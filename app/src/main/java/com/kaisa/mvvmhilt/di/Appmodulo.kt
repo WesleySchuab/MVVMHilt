@@ -1,6 +1,9 @@
 package com.kaisa.mvvmhilt.di
 
 import com.kaisa.mvvmhilt.data.remote.DummyAPI
+import com.kaisa.mvvmhilt.data.repository.UsuarioRepositoryImpl
+import com.kaisa.mvvmhilt.domain.repository.UsuarioRepository
+import com.kaisa.mvvmhilt.domain.usecase.GetUsuariosUseCase
 import com.kaisa.mvvmhilt.util.Constantes
 import dagger.Module
 import dagger.Provides
@@ -23,8 +26,17 @@ object Appmodulo {
 
     }
     @Provides
-    fun proverDummyAPI(retrofit: Retrofit): DummyAPI {
-        return retrofit.create(DummyAPI::class.java)
+    //Injeção de dependência
+    //Retorna um tipo  UsuarioRepository nessa caso um UsuarioRepositoryImpl
+    // Para isso precisamos do DummyAPI
+    fun proverUsuarioRepository(dummyAPI: DummyAPI): UsuarioRepository {
+        return UsuarioRepositoryImpl(dummyAPI)
+
+    }
+
+    @Provides
+    fun usuarioUseCase(usuarioRepository: UsuarioRepository): GetUsuariosUseCase {
+        return GetUsuariosUseCase(usuarioRepository)
 
     }
 }
