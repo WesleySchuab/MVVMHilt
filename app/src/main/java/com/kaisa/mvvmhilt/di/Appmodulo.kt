@@ -18,12 +18,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(ViewModelComponent::class)
 object Appmodulo {
     @Provides
-    fun proverRetrofit(): Retrofit {
+    fun proverRetrofit() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constantes.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl( Constantes.BASE_URL )
+            .addConverterFactory( GsonConverterFactory.create() )
             .build()
-
+    }
+    @Provides
+    fun proverDummyAPI(
+        retrofit: Retrofit
+    ) : DummyAPI {
+        return retrofit.create( DummyAPI::class.java )
     }
     @Provides
     //Injeção de dependência

@@ -19,13 +19,15 @@ class UsuarioRepositoryImpl @Inject constructor(
             val resposta = dummyAPI.recuperarUsuarios()
             if (resposta.isSuccessful && resposta.body() != null) {
                 val resultadoAPIDTO = resposta.body()
-                val listaUsuarios = resultadoAPIDTO?.usuarioDTOS
+                val listaUsuarios = resultadoAPIDTO?.users
                 if (listaUsuarios != null) {
                    /* val usuario = listaUsuarios.map { usuarioDTO ->
                         usuarioDTO.toUsuario()
                     }*/
                     return listaUsuarios.map { it.toUsuario() }
                 }
+            }else{
+                println("Erro na chamada da API")
             }
         } catch (erroRecuperarUsuarios: Exception) {
             erroRecuperarUsuarios.printStackTrace()
