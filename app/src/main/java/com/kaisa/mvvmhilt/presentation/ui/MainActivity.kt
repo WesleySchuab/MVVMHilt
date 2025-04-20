@@ -2,6 +2,7 @@ package com.kaisa.mvvmhilt.presentation.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -16,7 +17,8 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-    private lateinit var usuarioViewModel: UsuarioViewModel
+    private val usuarioViewModel: UsuarioViewModel by viewModels()
+   // private val usuarioViewModel by viewModels<UsuarioViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,14 +29,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        usuarioViewModel = ViewModelProvider(this)[UsuarioViewModel::class.java]
+        //usuarioViewModel = ViewModelProvider(this)[UsuarioViewModel::class.java]
+
+
         usuarioViewModel.usuario.observe(this){ listaUsuarios ->
             var listaResultado =""
             listaUsuarios.forEach { usuario ->
                 val nome = usuario.nome
                 val sobrenome = usuario.sobrenome
                 val idade = usuario.idade
-                listaResultado += " +)$nome - $sobrenome - $idade"
+                listaResultado += " +)$nome - $sobrenome - $idade \n"
             }
 
         binding.textResultado.text = listaResultado
